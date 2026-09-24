@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2A_exe Blog</title>a
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* 記事本文用のスタイル調整 */
+        .article-body h2 { font-size: 1.5rem; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.75em; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.25em; }
+        .article-body h3 { font-size: 1.25rem; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.75em; }
+        .article-body p { margin-bottom: 1em; line-height: 1.7; color: #334155; }
+        .article-body pre { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1.5em; font-family: monospace; }
+        .article-body code { background-color: #e2e8f0; color: #ef4444; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.9em; }
+        .article-body pre code { background-color: transparent; color: inherit; padding: 0; }
+        .article-body ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
+        .article-body li { margin-bottom: 0.25em; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4 sm:py-5 flex justify-between items-center max-w-6xl">
+            <!-- タイトルをクリックしたら一覧（ホーム）に戻るように設定 -->
+            <a href="#" onclick="showList(event)" class="text-2xl font-bold text-slate-900 tracking-tight hover:text-blue-600 transition-colors">2A_exe Blog</a>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl flex flex-col md:flex-row gap-8">
+        
+        <!-- 左側：メインエリア -->
+        <div class="w-full md:w-2/3 min-h-screen">
+            
+            <!-- ====== 記事一覧画面 ====== -->
+            <div id="view-list" class="flex flex-col gap-8">
+                <!-- JavaScriptでここに記事カードが挿入されます -->
+            </div>
+
+            <!-- ====== 記事詳細画面 (初期状態は非表示) ====== -->
+            <div id="view-detail" class="hidden bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                <!-- 戻るボタン -->
+                <div class="p-4 border-b border-slate-100 bg-slate-50">
+                    <button onclick="showList(event)" class="flex items-center gap-2 text-slate-600 hover:text-blue-600 font-medium transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                        </svg>
+                        記事一覧に戻る
+                    </button>
+                </div>
+                
+                <!-- 詳細コンテンツ -->
+                <article>
+                    <img id="detail-image" src="" alt="記事画像" class="w-full h-48 sm:h-80 object-cover">
+                    <div class="p-6 sm:p-10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span id="detail-category" class="bg-blue-50 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full"></span>
+                            <time id="detail-date" class="text-sm text-slate-500"></time>
+                        </div>
+                        <h1 id="detail-title" class="text-2xl sm:text-4xl font-bold text-slate-900 mb-8 leading-tight"></h1>
+                        
+                        <!-- ここに本文のHTMLが挿入されます -->
+                        <div id="detail-content" class="article-body text-lg">
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+        </div>
+
+        <!-- 右側：サイドバー -->
+        <aside class="w-full md:w-1/3 flex flex-col gap-6">
+            
+            <!-- プロフィール -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h3 class="text-lg font-bold mb-4 border-b pb-2 text-slate-800">プロフィール</h3>
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="https://placehold.co/100x100/e2e8f0/64748b?text=2A_exe" alt="2A_exe" class="w-16 h-16 rounded-full object-cover">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-lg">2A_exe</h4>
+                        <p class="text-sm text-slate-500">Scratcher / Coder</p>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    プログラミングに関するメモや作品について発信しています。
+                </p>
+                <div class="mt-5 pt-4 border-t border-slate-100">
+                    <!-- Scratchプロフィールへのリンク -->
+                    <a href="https://scratch.mit.edu/users/2A_exe/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full gap-2 bg-[#f5a623] hover:bg-[#e0961c] text-white font-bold py-2.5 px-4 rounded-xl transition-colors shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                        Scratchを見る
+                    </a>
+                </div>
+            </div>
+
+        </aside>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="container mx-auto px-4 text-center text-slate-500 text-sm">
+            &copy; 2026 2A_exe Blog.
+        </div>
+    </footer>
+
+    <script>
+        // --- 記事データ ---
+        // あとから記事を追加する場合は、この配列の先頭にオブジェクトを追加します。
+        // content プロパティの中に、本文のHTMLを書きます。
+        const articles = [
+            {
+                id: 2,
+                title: "JavaScriptの基本：変数と関数のやり方",
+                date: "2026.09.24",
+                category: "プログラミング",
+                image: "https://placehold.co/800x400/fef08a/854d0e?text=JS+Basics",
+                excerpt: "JavaScriptを使ったプログラミングの第一歩！データを保存する「変数」と、処理をまとめる「関数」の書き方について、初心者向けに解説します。",
+                content: `
+                    <p>今回はJavaScriptの基本である<strong>変数</strong>と<strong>関数</strong>のやり方を紹介します。Scratchでいう「変数」と「ブロック定義」にあたる重要な機能です。</p>
+                    
+                    <h2>1. 変数（データを保存する箱）</h2>
+                    <p>JavaScriptでは、データを一時的に保存するために変数を使います。昔は <code>var</code> を使っていましたが、今は <code>let</code> と <code>const</code> を使うのが主流です。</p>
+                    <ul>
+                        <li><code>let</code> : 後から中身を変更できる変数</li>
+                        <li><code>const</code> : 一度入れたら中身を変更できない変数（定数）</li>
+                    </ul>
+                    
+                    <h3>コードの例</h3>
+<pre><code>// letを使った変数
+let score = 0;
+score = 10; // 後から変更できる
+console.log(score); // 10が表示される
+
+// constを使った変数
+const playerName = "2A_exe";
+// playerName = "Hero"; // エラーになる！
+console.log(playerName);</code></pre>
+
+                    <h2>2. 関数（処理のまとまり）</h2>
+                    <p>よく使う処理は、関数としてまとめておくことができます。関数を作るには <code>function</code> というキーワードを使います。</p>
+                    
+                    <h3>コードの例</h3>
+<pre><code>// 「挨拶をする」関数を作る
+function sayHello(name) {
+    let message = "こんにちは、" + name + "さん！";
+    console.log(message);
+}
+
+// 関数を呼び出す（使う）
+sayHello("2A_exe"); // 「こんにちは、2A_exeさん！」と表示される
+sayHello("ゲスト"); // 「こんにちは、ゲストさん！」と表示される</code></pre>
+
+                    <p>関数を使うと、同じコードを何度も書かなくて済むので便利です。まずはこの2つをマスターして、色々な処理を作ってみましょう！</p>
+                `
+            },
+            {
+                id: 1,
+                title: "ブログ開設のお知らせ",
+                date: "2026.09.20",
+                category: "お知らせ",
+                image: "https://placehold.co/800x400/eff6ff/1d4ed8?text=Hello+World",
+                excerpt: "こんにちは、2A_exeです！新しくブログを始めました。ここではプログラミングに関するメモや、Scratchでの活動について発信していきます。",
+                content: `
+                    <p>こんにちは、<strong>2A_exe</strong>です！</p>
+                    <p>この度、自分のウェブサイトとしてブログを開設しました。</p>
+                    
+                    <h2>このブログについて</h2>
+                    <p>このブログでは、以下のような内容を発信していく予定です。</p>
+                    <ul>
+                        <li>プログラミング（HTML/CSS/JavaScriptなど）の勉強メモ</li>
+                        <li>Scratchで作った作品の紹介や、裏話</li>
+                        <li>その他、日常のちょっとしたお知らせ</li>
+                    </ul>
+
+                    <h2>Scratchについて</h2>
+                    <p>私はScratchでも活動しています。ゲームを作ったりツールを作ったりするのが好きです。右側のサイドバーにプロフィールへのリンクを貼っているので、ぜひそちらもチェックしてみてください！</p>
+                    
+                    <p>これから少しずつ記事を増やしていくので、よろしくお願いします！</p>
+                `
+            }
+        ];
+
+        // --- DOM要素の取得 ---
+        const viewList = document.getElementById('view-list');
+        const viewDetail = document.getElementById('view-detail');
+
+        // --- 一覧を描画する関数 ---
+        function renderList() {
+            viewList.innerHTML = ''; // クリア
+
+            articles.forEach(article => {
+                const cardHTML = `
+                    <article class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col sm:flex-row hover:shadow-md transition-shadow duration-300">
+                        <div class="w-full sm:w-2/5">
+                            <img src="${article.image}" alt="${article.title}" class="w-full h-48 sm:h-full object-cover">
+                        </div>
+                        <div class="w-full sm:w-3/5 p-6 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                        ${article.category}
+                                    </span>
+                                    <time class="text-sm text-slate-500">${article.date}</time>
+                                </div>
+                                <h2 class="text-xl font-bold text-slate-900 mb-3 leading-snug">
+                                    ${article.title}
+                                </h2>
+                                <p class="text-slate-600 leading-relaxed mb-4 text-sm line-clamp-3">
+                                    ${article.excerpt}
+                                </p>
+                            </div>
+                            <div>
+                                <!-- 詳細画面を表示する関数を呼び出す -->
+                                <button onclick="showDetail(${article.id})" class="inline-flex items-center gap-1 text-blue-600 font-medium text-sm hover:bg-blue-50 px-3 py-2 rounded-lg transition-colors -ml-3">
+                                    続きを見る
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+                viewList.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        }
+
+        // --- 詳細画面を表示する関数 ---
+        function showDetail(id) {
+            // IDから記事データを探す
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+
+            // 詳細画面のDOMにデータをセット
+            document.getElementById('detail-image').src = article.image;
+            document.getElementById('detail-category').textContent = article.category;
+            document.getElementById('detail-date').textContent = article.date;
+            document.getElementById('detail-title').textContent = article.title;
+            document.getElementById('detail-content').innerHTML = article.content;
+
+            // 画面の切り替え
+            viewList.classList.add('hidden');
+            viewDetail.classList.remove('hidden');
+
+            // 画面の上部にスクロール
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 一覧画面に戻る関数 ---
+        function showList(event) {
+            if(event) event.preventDefault(); // リンクのデフォルト動作を防ぐ
+            
+            // 画面の切り替え
+            viewDetail.classList.add('hidden');
+            viewList.classList.remove('hidden');
+
+            // 画面の上部にスクロール
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 初期化処理 ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderList(); // 最初は一覧を描画する
+        });
+    </script>
+</body>
+</html>
